@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class AddRunUi extends StatefulWidget {
   const AddRunUi({super.key});
@@ -8,6 +10,29 @@ class AddRunUi extends StatefulWidget {
 }
 
 class _AddRunUiState extends State<AddRunUi> {
+  File? imageFileSelected;
+  Future<void> selectImageFromCamera() async {
+    // Implement image selection logic here
+    final pickImage = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 80);
+    if (pickImage != null) {
+      setState(() {
+        imageFileSelected = File(pickImage.path);
+      });
+    }
+  }
+
+  Future<void> selectImageFromGallery() async {
+    // Implement image selection logic here
+    final pickImage = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 80);
+    if (pickImage != null) {
+      setState(() {
+        imageFileSelected = File(pickImage.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +64,31 @@ class _AddRunUiState extends State<AddRunUi> {
           child: Center(
             child: Column(
               children: [
-                Icon(
-                  Icons.add_a_photo,
-                  size: MediaQuery.of(context).size.width * 0.3,
-                  color: Colors.grey,
-                ),
+                imageFileSelected == null
+                    ? InkWell(
+                        onTap: () {
+                            selectImageFromGallery();
+                            // Handle image selection here
+                        },
+                        child: Icon(
+                          Icons.add_photo_alternate,
+                          size: MediaQuery.of(context).size.width * 0.3,
+                          color: Colors.grey,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          selectImageFromCamera();
+                          // Handle image selection here
+                        },
+                        child: Image.file(
+                          imageFileSelected!,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: MediaQuery.of(context).size.width * 0.3,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_run_trcker_app/views/splash_screen_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  // superBase settings
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://oabfsmcntsltgnuoaqrb.supabase.co',
+    publishableKey: 'sb_publishable_-5QF_kEmun-nhWZH-ouJeg_W_W5JocI',
+  );
+  //
+
   runApp(FlutterRunTrackerApp());
 }
 
