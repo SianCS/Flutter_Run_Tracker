@@ -28,7 +28,6 @@ class Run {
   // แปลงข้อมูลจาก Object เป็น JSON เพื่อส่งไปยัง API
   Map<String, dynamic> toJson() {
     return {
-      'runid': runid,
       'runWhere': runWhere,
       'runPerson': runPerson,
       'runDistance': runDistance,
