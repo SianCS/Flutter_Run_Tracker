@@ -17,7 +17,7 @@ class Run {
   // แปลง Supabase ข้อมูลจาก JSON เป็น Object เพื่อใช้ใน Flutter
   factory Run.fromJson(Map<String, dynamic> json) {
     return Run(
-      runid: json['runid'] as String?,
+      runid: json['id'] as String?,
       runWhere: json['runWhere'] as String?,
       runPerson: json['runPerson'] as String?,
       runDistance: json['runDistance'] as int?,
